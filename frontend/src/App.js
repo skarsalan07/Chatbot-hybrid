@@ -9,6 +9,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
 
+  // 🔹 Your deployed backend API base URL
+  const API_URL = "https://chatbot-hybrid.onrender.com";
+
   // 🔹 On first load, restore history from localStorage OR show greeting
   useEffect(() => {
     inputRef.current?.focus();
@@ -38,21 +41,24 @@ function App() {
     setIsLoading(true);
 
     try {
-   const response = await fetch("http://127.0.0.1:5000/clear", {
-  method: "POST"
-});
+      // Call your Render backend /ask
+      const response = await fetch(`${API_URL}/ask`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: input }),
+      });
 
       if (!response.ok) throw new Error("Network error");
 
       const data = await response.json();
 
-      // Construct updated history locally
+      // Append bot's reply
       const newAnswer = { question: input, answer: data.answer };
       const newMessages = [...messages, newAnswer].slice(-10); // keep last 10
       setMessages(newMessages);
     } catch (error) {
       console.error("Error sending message:", error);
-      // Update last item with error reply
+      // Update last message with error reply
       setMessages(prev => [
         ...prev.slice(0, -1),
         {
@@ -73,7 +79,7 @@ function App() {
     }
   };
 
-  // 🔹 Clear chat locally (always wipe out localStorage too)
+  // 🔹 Clear chat locally (localStorage only, stateless backend)
   const clearChat = () => {
     const greeting = { question: "", answer: "Hello 👋! How can I help you today?" };
     setMessages([greeting]);
