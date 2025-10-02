@@ -9,7 +9,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
 
-  const API_URL = "http://localhost:5000"; // Change to your backend URL
+  // const API_URL = "http://localhost:5000"; // Change to your backend URL
+  
+  // Update this line in App.js
+const API_URL = "https://chatbot-hybrid-backend.onrender.com";
 
   // Load chat history on startup
   useEffect(() => {
