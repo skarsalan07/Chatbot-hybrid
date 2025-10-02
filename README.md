@@ -151,12 +151,3 @@ gunicorn app:app
 4. Push to your branch
 5. Create a Pull Request
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Groq for LLM API
-- React team for the frontend framework
-- Flask team for the backend framework
