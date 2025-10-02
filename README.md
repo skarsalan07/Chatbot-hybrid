@@ -2,6 +2,12 @@
 
 A hybrid chatbot system that combines a knowledge base with LLM capabilities using Groq. The system features a React frontend and Flask backend, providing both fast responses from a local knowledge base and AI-powered responses for more complex queries.
 
+## 🌐 Live Demo
+
+**Live Link:** [https://bucolic-maamoul-f98630.netlify.app/](https://bucolic-maamoul-f98630.netlify.app/)  
+
+**Demo Video:** [Add your demo video link here]
+
 ## Features
 
 - Hybrid response system (Knowledge Base + LLM)
