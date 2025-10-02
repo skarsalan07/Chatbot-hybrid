@@ -55,7 +55,7 @@ def search_knowledge_base(question: str):
         return knowledge_base[q_lower]
     
     # Method 2: Fuzzy matching with difflib
-    matches = difflib.get_close_matches(q_lower, knowledge_base.keys(), n=2, cutoff=0.7)
+    matches = difflib.get_close_matches(q_lower, knowledge_base.keys(), n=2, cutoff=0.6)
     if matches:
         print(f"✅ Fuzzy match found: {matches[0]} (similarity: {difflib.SequenceMatcher(None, q_lower, matches[0]).ratio():.2f})")
         return knowledge_base[matches[0]]
