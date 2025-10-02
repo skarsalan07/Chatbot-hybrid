@@ -6,7 +6,7 @@ A hybrid chatbot system that combines a knowledge base with LLM capabilities usi
 
 **Live Link:** [https://bucolic-maamoul-f98630.netlify.app/](https://bucolic-maamoul-f98630.netlify.app/)  
 
-**Demo Video:** [Add your demo video link here]
+**Demo Video:** [Demo video link here](https://github.com/skarsalan07/Chatbot-hybrid)
 
 ## Features
 
