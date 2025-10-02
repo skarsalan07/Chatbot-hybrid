@@ -1,70 +1,162 @@
-# Getting Started with Create React App
+# Mohur AI Hybrid Chatbot
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A hybrid chatbot system that combines a knowledge base with LLM capabilities using Groq. The system features a React frontend and Flask backend, providing both fast responses from a local knowledge base and AI-powered responses for more complex queries.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- Hybrid response system (Knowledge Base + LLM)
+- React-based user interface
+- Flask REST API backend
+- Knowledge base management
+- Integration with Groq LLM API
+- Multiple search methods for knowledge base (exact, fuzzy, keyword, partial matching)
+- Health monitoring endpoint
+- Production-ready with Gunicorn support
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
+- React 19.1.1
+- Framer Motion for animations
+- CSS for styling
+- React Testing Library for tests
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- Python with Flask
+- Flask-CORS for cross-origin support
+- Groq API for LLM integration
+- JSON-based knowledge base
+- Gunicorn for production deployment
 
-### `npm test`
+## Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js (v16 or higher)
+- Python (v3.8 or higher)
+- npm or yarn
+- pip (Python package manager)
 
-### `npm run build`
+## Setup Instructions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Navigate to the backend directory:
+```bash
+cd backend
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Create a virtual environment (recommended):
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+```
 
-### `npm run eject`
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Set up environment variables:
+   - Create a `.env` file in the backend directory
+   - Add your Groq API key:
+```
+GROQ_API_KEY=your_api_key_here
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Frontend Setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. Navigate to the frontend directory:
+```bash
+cd frontend
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. Install dependencies:
+```bash
+npm install
+```
 
-## Learn More
+## Running the Application
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Development Mode
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Start the backend server (from the backend directory):
+```bash
+python app.py
+```
+The backend will run on http://localhost:5000
 
-### Code Splitting
+2. Start the frontend development server (from the frontend directory):
+```bash
+npm start
+```
+The frontend will run on http://localhost:3000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Production Mode
 
-### Analyzing the Bundle Size
+1. Build the frontend:
+```bash
+cd frontend
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Start the production server with Gunicorn:
+```bash
+cd backend
+gunicorn app:app
+```
 
-### Making a Progressive Web App
+## API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `POST /ask` - Send questions to the chatbot
+- `GET /health` - Check system health status
+- `GET /admin/kb` - Get knowledge base entries
+- `POST /admin/kb` - Add new knowledge base entry
+- `DELETE /admin/kb` - Remove knowledge base entry
 
-### Advanced Configuration
+## Project Structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+├── backend/
+│   ├── app.py              # Main Flask application
+│   ├── knowledge_base.json # JSON knowledge base
+│   ├── requirements.txt    # Python dependencies
+│   └── Procfile           # Production server configuration
+├── frontend/
+│   ├── public/            # Static assets
+│   ├── src/              
+│   │   ├── App.js        # Main React component
+│   │   ├── ChatWindow.js # Chat interface component
+│   │   └── ...          # Other React components
+│   ├── package.json      # Node.js dependencies
+│   └── build/           # Production build output
+└── README.md
+```
 
-### Deployment
+## Assumptions and Design Decisions
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. **Knowledge Base Priority**: The system prioritizes knowledge base responses over LLM to provide faster responses when possible.
 
-### `npm run build` fails to minify
+2. **Search Algorithm**: The knowledge base search implements multiple matching methods (exact, fuzzy, keyword, partial) to maximize the chance of finding relevant answers.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. **Error Handling**: The system includes comprehensive error handling for both frontend and backend operations.
+
+4. **Security**: CORS is enabled for development, but should be configured appropriately for production.
+
+5. **Scalability**: The knowledge base is file-based for simplicity, but could be migrated to a database for larger deployments.
+
+## Contributing
+
+1. Fork the repository
+2. Create a new branch for your feature
+3. Commit your changes
+4. Push to your branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Groq for LLM API
+- React team for the frontend framework
+- Flask team for the backend framework
